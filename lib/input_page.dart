@@ -29,46 +29,39 @@ class _InputPageState extends State<InputPage> {
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Expanded(
             child: Row(
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-//                      print('Pressed M');
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
                         selectedGender = GenderType.male;
                       });
                     },
-                    child: ReusableCard(
-                      colour: selectedGender == GenderType.male
-                          ? activeCardColour
-                          : inactiveCardColour,
-                      cardColumn: IconContent(
-                        cardIcon: FontAwesomeIcons.mars,
-                        label: 'MALE',
-                      ),
+                    colour: selectedGender == GenderType.male
+                        ? activeCardColour
+                        : inactiveCardColour,
+                    cardColumn: IconContent(
+                      cardIcon: FontAwesomeIcons.mars,
+                      label: 'MALE',
                     ),
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
                         selectedGender = GenderType.female;
                       });
                     },
-                    child: ReusableCard(
-                      colour: selectedGender == GenderType.female
-                          ? activeCardColour
-                          : inactiveCardColour,
-                      cardColumn: IconContent(
-                        cardIcon: FontAwesomeIcons.venus,
-                        label: 'FEMALE',
-                      ),
+                    colour: selectedGender == GenderType.female
+                        ? activeCardColour
+                        : inactiveCardColour,
+                    cardColumn: IconContent(
+                      cardIcon: FontAwesomeIcons.venus,
+                      label: 'FEMALE',
                     ),
                   ),
                 ),

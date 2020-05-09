@@ -1,13 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
+import 'constants.dart';
 
-const bottomContainerColour = Color(0xFFEB1555);
-const bottomContainerHeight = 60.0;
-const activeCardColour = Color(0xFF1D1E33);
-const inactiveCardColour = Color(0xFF111328);
-const iconTxtColour = Color(0xFF8D8E98);
 enum GenderType {
   male,
   female,
@@ -20,6 +17,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   GenderType selectedGender;
+  int personHeight = 150;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +39,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     colour: selectedGender == GenderType.male
-                        ? activeCardColour
-                        : inactiveCardColour,
+                        ? kActiveCardColour
+                        : kInactiveCardColour,
                     cardColumn: IconContent(
                       cardIcon: FontAwesomeIcons.mars,
                       label: 'MALE',
@@ -57,8 +55,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     colour: selectedGender == GenderType.female
-                        ? activeCardColour
-                        : inactiveCardColour,
+                        ? kActiveCardColour
+                        : kInactiveCardColour,
                     cardColumn: IconContent(
                       cardIcon: FontAwesomeIcons.venus,
                       label: 'FEMALE',
@@ -73,7 +71,54 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
-                    colour: activeCardColour,
+                    colour: kActiveCardColour,
+                    cardColumn: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'HEIGHT',
+                          style: kLabelTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          //baseline property has to be set when using Alignment baseline option
+                          children: <Widget>[
+                            Text(
+                              personHeight.toString(),
+                              style: kFeaturesTextStyle,
+                            ),
+                            Text(
+                              'cm',
+                              style: kLabelTextStyle,
+                            ),
+                          ],
+                        ),
+                        SliderTheme(
+                          //get the current slider context and change the elements you need to
+                          data: SliderTheme.of(context).copyWith(
+                            activeTrackColor: Colors.white,
+                            inactiveTrackColor: kIconTxtColour,
+                            thumbColor: kBottomContainerColour,
+                            overlayColor: kSliderOverlayColour,
+                            thumbShape:
+                                RoundSliderThumbShape(enabledThumbRadius: 14),
+                            overlayShape:
+                                RoundSliderOverlayShape(overlayRadius: 25),
+                          ),
+                          child: Slider(
+                              value: personHeight.toDouble(),
+                              min: kSliderMin,
+                              max: kSliderMax,
+                              onChanged: (double newValue) {
+                                setState(() {
+                                  personHeight = newValue.round();
+                                });
+                              }),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -85,7 +130,7 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
-                    colour: activeCardColour,
+                    colour: kActiveCardColour,
                     cardColumn: HeightWeightIconContent(
                       iconLabel: 'WEIGHT',
                     ),
@@ -93,9 +138,9 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colour: activeCardColour,
+                    colour: kActiveCardColour,
                     cardColumn: HeightWeightIconContent(
-                      iconLabel: 'HEIGHT',
+                      iconLabel: 'AGE',
                     ),
                   ),
                 ),
@@ -103,16 +148,16 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Container(
-            color: bottomContainerColour,
+            color: kBottomContainerColour,
             width: double.infinity,
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
             margin: EdgeInsets.only(top: 10.0),
             child: Center(
                 child: Text(
               'CALCULATE YOUR BMI',
               style: TextStyle(
                   fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w900,
                   color: Colors.white),
             )),
           )
@@ -139,14 +184,11 @@ class HeightWeightIconContent extends StatelessWidget {
             color: Color(0xFF8D8E98),
           ),
         ),
-//                        SizedBox(
-//                          height: 5.0,
-//                        ),
         Text(
           '85',
           style: TextStyle(
             fontSize: 50,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w900,
             color: Colors.white,
           ),
         ),
@@ -155,11 +197,11 @@ class HeightWeightIconContent extends StatelessWidget {
           children: <Widget>[
             Icon(
               FontAwesomeIcons.minusCircle,
-              size: 50,
+              size: 40,
             ),
             Icon(
               FontAwesomeIcons.plusCircle,
-              size: 50,
+              size: 40,
             ),
           ],
         )

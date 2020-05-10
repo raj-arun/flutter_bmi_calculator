@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'icon_content.dart';
-import 'reusable_card.dart';
+
 import 'constants.dart';
+import 'icon_content.dart';
 import 'results_page.dart';
+import 'reusable_card.dart';
 
 enum GenderType {
   male,
@@ -19,7 +20,7 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   GenderType selectedGender;
   int personHeight = 150;
-  int personWeight = 20;
+  int personWeight = 50;
   int personAge = 18;
 
   @override

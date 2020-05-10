@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'constants.dart';
+import 'results_page.dart';
 
 enum GenderType {
   male,
@@ -18,6 +19,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   GenderType selectedGender;
   int personHeight = 150;
+  int personWeight = 20;
+  int personAge = 18;
 
   @override
   Widget build(BuildContext context) {
@@ -131,35 +134,103 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableCard(
                     colour: kActiveCardColour,
-                    cardColumn: HeightWeightIconContent(
-                      iconLabel: 'WEIGHT',
+                    cardColumn: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'WEIGHT',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          personWeight.toString(),
+                          style: kFeaturesTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  personWeight--;
+                                });
+                              },
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  personWeight++;
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     colour: kActiveCardColour,
-                    cardColumn: HeightWeightIconContent(
-                      iconLabel: 'AGE',
+                    cardColumn: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'AGE',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          personAge.toString(),
+                          style: kFeaturesTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  personAge--;
+                                });
+                              },
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  personAge++;
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          Container(
-            color: kBottomContainerColour,
-            width: double.infinity,
-            height: kBottomContainerHeight,
-            margin: EdgeInsets.only(top: 10.0),
-            child: Center(
-                child: Text(
-              'CALCULATE YOUR BMI',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white),
-            )),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ResultsPage()));
+            },
+            child: Container(
+              color: kBottomContainerColour,
+              width: double.infinity,
+              height: kBottomContainerHeight,
+              margin: EdgeInsets.only(top: 10.0),
+              child: Center(
+                  child: Text(
+                'CALCULATE YOUR BMI',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white),
+              )),
+            ),
           )
         ],
       ),
@@ -167,45 +238,24 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
-class HeightWeightIconContent extends StatelessWidget {
-  HeightWeightIconContent({@required this.iconLabel});
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({@required this.icon, this.onPressed});
 
-  final String iconLabel;
+  final IconData icon;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          iconLabel,
-          style: TextStyle(
-            fontSize: 16,
-            color: Color(0xFF8D8E98),
-          ),
-        ),
-        Text(
-          '85',
-          style: TextStyle(
-            fontSize: 50,
-            fontWeight: FontWeight.w900,
-            color: Colors.white,
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Icon(
-              FontAwesomeIcons.minusCircle,
-              size: 40,
-            ),
-            Icon(
-              FontAwesomeIcons.plusCircle,
-              size: 40,
-            ),
-          ],
-        )
-      ],
+    return RawMaterialButton(
+      onPressed: onPressed,
+      child: Icon(icon),
+      elevation: 6.0,
+      fillColor: Color(0xFF4C4F5E),
+      constraints: BoxConstraints.tightFor(
+        height: 50.0,
+        width: 50.0,
+      ),
+      shape: CircleBorder(),
     );
   }
 }

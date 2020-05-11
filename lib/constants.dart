@@ -24,3 +24,14 @@ const kTitleTextStyle = TextStyle(
   fontSize: 50.0,
   fontWeight: FontWeight.bold,
 );
+
+const kButtonTextStyle =
+    TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Colors.white);
+
+const kResultsTextStyle = TextStyle(
+    fontSize: 22.0, fontWeight: FontWeight.bold, color: Color(0xFF24D876));
+
+const kBMITextStyle =
+    TextStyle(fontSize: 100, fontWeight: FontWeight.w900, color: Colors.white);
+
+const kBodyTextStyle = TextStyle(fontSize: 20);
